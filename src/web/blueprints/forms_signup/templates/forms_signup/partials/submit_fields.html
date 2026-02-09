@@ -1,0 +1,32 @@
+<fieldset class="remove">
+	<div class="d-grid gap-2">
+		<div id="turnstileContainer" class="mx-auto d-none" data-turnstile-action="signup"></div>
+
+		<button
+			type="submit"
+			class="btn btn-secondary fw-bold position-relative"
+			disabled
+		>
+			<span
+				class="
+					position-absolute
+					top-50
+					translate-middle-y
+					btn-icon-left btn-icon-d-sibling-toggle
+				"
+				>{% if form_type == "signature" %}{% with icon="pen-fill", icon_classes="iconPosition" %}{% include
+				"icons.html" %}{% endwith %}{% else %}{% with icon="envelope-fill", icon_classes="iconPosition" %}{% include
+				"icons.html" %}{% endwith %}{% endif %}</span
+			>
+			<span class="position-absolute top-50 translate-middle-y btn-icon-left"
+				><span
+					class="spinner-border spinner-border-sm position-relative top-1px"
+					role="status"
+					aria-label="Processing"
+					aria-hidden="true"
+				></span
+			></span>
+			{{ params.get("action", config["ACTION_SIGNUP"]).title() }}
+		</button>
+	</div>
+</fieldset>

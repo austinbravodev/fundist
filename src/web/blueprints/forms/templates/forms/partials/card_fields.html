@@ -1,0 +1,67 @@
+<fieldset id="method-card" class="collapse" data-bs-parent="main" disabled>
+	<div class="d-grid gap-2">
+		<div class="input-group">
+			<span class="input-group-text text-muted">
+				{% with icon="credit-card-fill" %}{% include "icons.html" %}{% endwith
+				%}
+			</span>
+			<input
+				type="tel"
+				class="form-control"
+				id="card_number"
+				aria-label="Card Number"
+				placeholder="1234 1234 1234 1234"
+				autocomplete="cc-number"
+				autocorrect="off"
+				spellcheck="false"
+				pattern="[ 0-9]{13,20}"
+				required
+			/>
+		</div>
+
+		<div class="input-group remove">
+			<span class="input-group-text text-muted">
+				{% with icon="calendar-fill" %}{% include "icons.html" %}{% endwith %}
+			</span>
+			<input
+				type="tel"
+				class="form-control"
+				id="card_month"
+				aria-label="Card Expiration Month"
+				placeholder="MM"
+				autocomplete="cc-exp-month"
+				autocorrect="off"
+				spellcheck="false"
+				pattern="[0-9]{1,2}"
+				required
+			/>
+			<input
+				type="tel"
+				class="form-control"
+				id="card_year"
+				aria-label="Card Expiration Year"
+				placeholder="YY"
+				autocomplete="cc-exp-year"
+				autocorrect="off"
+				spellcheck="false"
+				pattern="[0-9]{2}|[0-9]{4}"
+				required
+			/>
+			<span class="input-group-text text-muted">
+				{% with icon="shield-shaded" %}{% include "icons.html" %}{% endwith %}
+			</span>
+			<input
+				type="tel"
+				class="form-control flex-grow-1_5"
+				id="card_code"
+				aria-label="Card Security Code"
+				placeholder="CVC"
+				autocomplete="cc-csc"
+				autocorrect="off"
+				spellcheck="false"
+				pattern="[0-9]{3,4}"
+				required
+			/>
+		</div>
+	</div>
+</fieldset>

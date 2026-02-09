@@ -1,0 +1,339 @@
+/*!
+ * Bootstrap v5.0.2 (https://getbootstrap.com/)
+ * Copyright 2011-2021 The Bootstrap Authors
+ * Copyright 2011-2021 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
+ */
+
+@use "sass:math";
+
+// scss-docs-start import-stack
+// Configuration
+@import "./bootstrap/functions";
+
+/* Custom Variables 
+-------------------- */
+$enable-negative-margins: true;
+
+// $primary: #078fd4;
+// $secondary: #dc143c;
+
+$primary: #000103;
+$secondary: #eb141f;
+
+$text-muted: tint-color(#6c757d, 15%);
+
+$font-family-sans-serif: "Lato", system-ui, -apple-system, "Segoe UI", Roboto,
+  "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif,
+  "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+$transition-collapse: none;
+
+@import "./bootstrap/variables";
+@import "./bootstrap/mixins";
+@import "./bootstrap/utilities";
+
+// Layout & components
+@import "./bootstrap/root";
+@import "./bootstrap/reboot";
+@import "./bootstrap/type";
+@import "./bootstrap/images";
+@import "./bootstrap/containers";
+@import "./bootstrap/grid";
+//@import "./bootstrap/tables";
+@import "./bootstrap/forms";
+@import "./bootstrap/buttons";
+@import "./bootstrap/transitions";
+//@import "./bootstrap/dropdown";
+@import "./bootstrap/button-group";
+//@import "./bootstrap/nav";
+//@import "./bootstrap/navbar";
+//@import "./bootstrap/card";
+//@import "./bootstrap/accordion";
+//@import "./bootstrap/breadcrumb";
+//@import "./bootstrap/pagination";
+@import "./bootstrap/badge";
+@import "./bootstrap/alert";
+@import "./bootstrap/progress";
+@import "./bootstrap/list-group";
+//@import "./bootstrap/close";
+//@import "./bootstrap/toasts";
+//@import "./bootstrap/modal";
+//@import "./bootstrap/tooltip";
+//@import "./bootstrap/popover";
+//@import "./bootstrap/carousel";
+@import "./bootstrap/spinners";
+//@import "./bootstrap/offcanvas";
+
+// Helpers
+@import "./bootstrap/helpers";
+
+// Utilities
+@import "./bootstrap/utilities/api";
+// scss-docs-end import-stack
+
+/* Custom Styles 
+----------------- */
+
+.cursor-default {
+  cursor: default;
+}
+
+.bg-black {
+  background-color: $black !important;
+}
+
+.bg-white-unimportant {
+  background-color: $white;
+}
+
+.opacity-50 {
+  opacity: 0.5 !important;
+}
+
+.top-1px {
+  top: 1px;
+}
+
+.top-n2px {
+  top: -2px;
+}
+
+.bottom-1px {
+  bottom: 1px;
+}
+
+.text-underline-hover:hover {
+  text-decoration: underline !important;
+}
+
+.w-spacer-1_75 {
+  width: $spacer * 1.75;
+}
+
+.w-spacer-2 {
+  width: $spacer * 2;
+}
+
+.squared-bottom-end {
+  border-bottom-right-radius: 0 !important;
+}
+
+.flex-grow-1_25 {
+  flex-grow: 1.25 !important;
+}
+
+.flex-grow-1_5 {
+  flex-grow: 1.5 !important;
+}
+
+.flex-grow-1_75 {
+  flex-grow: 1.75 !important;
+}
+
+.flex-basis-0 {
+  flex-basis: 0 !important;
+}
+
+.d-none-empty:empty {
+  display: none;
+}
+
+.z-index-focus-2:focus {
+  z-index: 2 !important;
+}
+
+.btn-icon-left {
+  left: $btn-padding-x;
+}
+
+.btn-icon-d-sibling-toggle:not(.d-none) + .btn-icon-left {
+  display: none;
+}
+
+.btn-caret {
+  @include caret();
+
+  &::after {
+    margin-left: math.div($caret-width, 6);
+    vertical-align: $caret-width * 0.6;
+  }
+}
+
+.btn-check:checked + .btn-outline-primary,
+.btn-check:active + .btn-outline-primary,
+.btn-outline-primary:active,
+.btn-outline-primary.active,
+.btn-outline-primary.dropdown-toggle.show,
+.btn-outline-primary:hover,
+.btn-primary,
+.btn-primary:hover,
+.btn-check:checked + .btn-primary,
+.btn-check:active + .btn-primary,
+.btn-primary:active,
+.btn-primary.active,
+.show > .btn-primary.dropdown-toggle,
+.btn-check:focus + .btn-primary,
+.btn-primary:focus,
+.btn-primary:disabled,
+.btn-primary.disabled {
+  color: $white;
+
+  .badge.bg-primary {
+    background-color: $white !important;
+    color: $primary;
+  }
+}
+
+.btn-input {
+  @include button-variant(
+    $input-bg,
+    $input-border-color,
+    $input-color,
+    $hover-background: $input-group-addon-bg,
+    $hover-border: $input-group-addon-border-color,
+    $hover-color: $input-group-addon-color,
+    $active-background: shade-color($input-group-addon-bg, 5%),
+    $active-border: $input-group-addon-border-color,
+    $active-color: $input-group-addon-color,
+    $disabled-background: $input-bg,
+    $disabled-border: $input-border-color,
+    $disabled-color: $input-color
+  );
+}
+
+.btn-black {
+  @include button-variant(
+    $black,
+    $black,
+    $color: color-contrast($black),
+    $hover-background: tint-color($black, $btn-hover-bg-tint-amount),
+    $hover-border: tint-color($black, $btn-hover-border-tint-amount),
+    $hover-color: color-contrast(tint-color($black, $btn-hover-bg-tint-amount)),
+    $active-background: tint-color($black, $btn-active-bg-tint-amount),
+    $active-border: tint-color($black, $btn-active-border-tint-amount),
+    $active-color:
+      color-contrast(tint-color($black, $btn-active-bg-tint-amount)),
+    $disabled-background: $black,
+    $disabled-border: $black,
+    $disabled-color: color-contrast($black)
+  );
+}
+
+.btn-group > .btn[data-bs-target^="#method-"] {
+  &[aria-expanded="true"] {
+    @extend .active;
+  }
+}
+
+.progress-bar {
+  $font-size: $font-size-base * 0.9;
+  font-size: $font-size;
+  min-height: $font-size * $line-height-base;
+  min-width: $font-size-base * 2.5;
+}
+
+// remove on update
+.bg-dark.bg-opacity-75 {
+  background-color: rgba($dark, 0.75) !important;
+}
+
+@supports (-webkit-appearance: -apple-pay-button) {
+  #apBtn {
+    -webkit-appearance: -apple-pay-button;
+    -apple-pay-button-type: donate;
+    -apple-pay-button-style: black;
+
+    height: calc(
+      #{$btn-border-width} * 2 + #{$btn-padding-y} * 2 + #{$btn-font-size} * #{$btn-line-height}
+    );
+    border-radius: $btn-border-radius;
+  }
+}
+
+#wallet,
+#stripe_pr_btn_cont {
+  &.d-none {
+    + small {
+      display: none;
+    }
+  }
+  &:not(.d-none) {
+    + small + small {
+      display: none;
+    }
+  }
+}
+
+#apBtnCont {
+  &:not(.d-none) {
+    + #stripe_pr_btn_cont.d-none {
+      + small + small {
+        display: none;
+      }
+    }
+  }
+}
+
+@include media-breakpoint-up(lg) {
+  #bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    z-index: -1;
+
+    object-fit: cover;
+  }
+}
+
+#currency:disabled {
+  background-image: none;
+}
+
+#orgGroup {
+  margin-top: 0.125rem;
+}
+
+#taxFlag {
+  font-size: $font-size-base * 1.15;
+  line-height: 1;
+  vertical-align: -0.075em;
+}
+
+.iconPosition {
+  display: inline-block;
+  vertical-align: -0.125em;
+  width: 1em;
+  height: 1em;
+}
+
+#customAmounts > .col {
+  flex-basis: 33.33333333%;
+
+  label {
+    column-gap: 0.5rem;
+    row-gap: 0.1rem;
+  }
+}
+
+#customAmounts > .amtBtnLabelled {
+  flex-basis: 66.66666667%;
+}
+
+#customAmounts .badge {
+  font-size: 0.9rem;
+  padding: 0.3em 0.5em;
+  top: 0px;
+}
+
+#perks h5 + ul::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0.25;
+  width: 100%;
+  background-color: currentColor;
+  height: 1px;
+}

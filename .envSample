@@ -1,0 +1,77 @@
+ACTION=donate
+ACTION_CAMPAIGN="Take Action"
+ACTION_SIGNUP=Sign Up
+# `full` to ask for full as opposed to partial address
+ADDRESS=
+AUTHORIZENET_ID=
+AUTHORIZENET_KEY=
+AUTHORIZENET_WEBHOOK_SECRET=
+CARD_PROCESSOR=stripe
+COUNTRY_CODES=ca,au,gb,us
+CURRENCIES=cad,aud,gbp,usd,nzd
+CURRENCYAPI_KEY=
+# add `tags_share,share` for donation data sharing
+CUSTOM_FIELDS=tags
+# add `tags_share,petition_id_share,share` for signup / petition data sharing
+CUSTOM_FIELDS_SIGNUP=tags,petition_id
+CRMS=nationbuilder
+DATABASE_URL=
+# emoji flag of tax deductible country
+DEDUCTIBLE=🇨🇦
+# at this point, only use *seems* to be what domains to trust for email blast attribution
+# separate by a space
+DOMAINS=
+# in case of error, allow donations at this URL
+FALLBACK_URL=
+# in case of error, allow signups at this URL
+FALLBACK_URL_SIGNUP=
+# add `nationbuilder_share` for data sharing
+INTEGRATIONS=stripe: database nationbuilder invoices sendgrid
+KEYSTONE_API_KEY=
+KEYSTONE_API_URL=http://host.docker.internal:5555/api/graphql
+# organization's legal name
+LEGAL_NAME=
+# image URL
+LOGO=
+# organization's name
+NAME=
+NATIONBUILDER_ID=
+NATIONBUILDER_KEY=
+NB_SITE_SLUG=
+# for data sharing
+NB_SHARE_SITE_SLUG=
+# allow the specification of donations by / on behalf of organizations
+ORGANIZATION_NAME=true
+# development only
+POSTGRES_HOST_AUTH_METHOD=trust
+# disabled, will have no effect
+RECEIPTS_BCC=
+# format: `email@address.com: Sender Title`
+RECEIPTS_EMAIL=
+RECEIPTS_MESSAGE=
+# avoid exceeding your Redis instance's connection limit (not your limit may be greater or less than 40 - adjust accordingly)
+REDIS_MAX_CONN=40
+REDIS_URL=
+SCRIPTS=https://js.stripe.com/v3/
+SENDGRID_API_KEY=
+SUPPORT_EMAIL=
+STRIPE_DATABASE_WEBHOOK_SECRET=
+STRIPE_INVOICES_WEBHOOK_SECRET=
+STRIPE_KEY=
+STRIPE_NATIONBUILDER_WEBHOOK_SECRET=
+STRIPE_PUBLIC_KEY=
+# for recurring transactions
+STRIPE_PRODUCT_ID=
+STRIPE_SENDGRID_WEBHOOK_SECRET=
+# url to link to
+TERMS=
+# Turnstile is currently disabled, so the below will have no effect
+TURNSTILE_DONATION_ACTION=donation
+TURNSTILE_SECRET=
+TURNSTILE_SIGNUP_ACTION=signup
+TURNSTILE_SITE_KEY=
+# handle, no @ symbol
+TWITTER=
+TYPE=donation
+# e.g. `America/Toronto`
+TZ=

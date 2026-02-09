@@ -1,0 +1,186 @@
+<fieldset class="d-grid gap-2 disable">
+	<input
+		id="turnstileToken"
+		data-fd-field="transaction"
+		type="hidden"
+		value=""
+	/>
+
+	{% if "tag" in params %}
+	<input
+		id="tag"
+		data-fd-field="transaction"
+		type="hidden"
+		value="{{ params['tag'] }}"
+	/>
+	{% endif %} {% if "type" in params %}
+	<input
+		id="type"
+		data-fd-field="transaction"
+		type="hidden"
+		value="{{ params['type'] }}"
+	/>
+	{% endif %}
+
+	{% for field, val in params["custom_fields"].items() %}
+	<input
+		id="{{ field }}"
+		data-fd-field="transaction"
+		type="hidden"
+		value="{{ val }}"
+	/>
+	{% endfor %}
+
+	{% if "custom_amounts" in params %}
+	<div id="perks" class="alert alert-success mb-2 d-none-empty" role="alert"></div>
+	{% endif %}
+
+	<div
+		id="intervalButtons"
+		class="btn-group btn-group-sm"
+		role="group"
+		aria-label="Billing Interval"
+	>
+		{% if "custom_amounts" not in params %}
+		{% for interval in ["once", "month", "year"] %} <input type="radio"
+		class="btn-check" name="interval" {% if interval != "once"
+		%}data-fd-field="transaction"{% endif %} id="interval-{{ interval }}"
+		value="{{ interval }}" autocomplete="off" required {% if params["interval"]
+		== interval %}checked{% endif %} />
+		<label class="btn btn-input flex-basis-0" for="interval-{{ interval }}"
+			>{{ interval.replace("month", "monthly").replace("year",
+			"annual").capitalize() }}</label
+		>
+		{% endfor %}
+		{% endif %}
+	</div>
+
+	{% if "custom_amounts" in params %}
+	<div id="customAmounts" class="row gx-2 gy-2 remove"></div>
+
+	{% elif "amounts" in params %} {% set amts = params["amounts"].split(",") %} {%
+	set cut = true if amts|length % 3 == 1 else false %} {% for amt in amts %} {%
+	set amt = amt.strip() %} {% if (loop.index0 % 3 == 0 and not (cut and
+	loop.revindex == 1)) or (cut and loop.revindex == 2) %}
+	<div class="row gx-2 remove">
+		{% endif %}
+		<div class="col">
+			<input
+				type="radio"
+				class="btn-check"
+				name="amounts"
+				value="{{ amt }}"
+				id="amt-{{ amt }}"
+				autocomplete="off"
+			/>
+			<label
+				class="btn btn-outline-primary bg-white-unimportant d-block"
+				for="amt-{{ amt }}"
+				><span class="curr-sym">{{ def_sym }}</span>{{
+				"{:,.2f}".format(amt|float).replace(".00", "") }}</label
+			>
+		</div>
+		{% if (loop.index % 3 == 0 and not (cut and loop.revindex == 2)) or (cut and
+		loop.revindex == 3) or loop.last %}
+	</div>
+	{% endif %} {% endfor %} {% endif %}
+
+	<div class="input-group">
+		<select
+			class="form-select"
+			id="currency"
+			data-fd-field="transaction"
+			aria-label="Currency"
+			autocomplete="transaction-currency"
+			required
+			{%
+			if "custom_amounts" not in params and config["CURRENCIES"]|length == 1
+			%}disabled{%
+			endif
+			%}
+		>
+			{% if "custom_amounts" not in params %}
+			{% for curr, sym in config["CURRENCIES"].items() %}
+			<option
+				value="{{ curr }}"
+				data-fd-curr-sym="{{ sym }}"
+				{%
+				if curr == params["currency"]
+				%}
+				selected{%
+				endif
+				%}
+			>
+				{{ curr }}
+			</option>
+			{% endfor %}
+			{% endif %}
+		</select>
+		<span class="input-group-text curr-sym">{{ def_sym }}</span>
+		<input type="text" class="form-control flex-grow-1_5" id="amount"
+		data-fd-field="transaction" placeholder="Amount" {% if "amount" in params
+		%}value="{{ params['amount'] }}"{% endif %} required />
+	</div>
+
+	{% if config["ORGANIZATION_NAME"] == "true" %}
+	<div>
+		<div class="form-check remove mb-0">
+			<input class="form-check-input" type="checkbox" id="isOrg" />
+			<label class="form-check-label" for="isOrg">
+				Corporate / Business Contribution
+			</label>
+		</div>
+		<div id="orgGroup" class="input-group d-none">
+			<span class="input-group-text text-muted">
+				{% with icon="building" %}{% include "icons.html" %}{% endwith %}
+			</span>
+			<input
+				type="text"
+				class="form-control"
+				id="organization_name"
+				data-fd-field="transaction"
+				placeholder="Corporation / Business Name"
+				autocomplete="organization"
+				autocorrect="off"
+				spellcheck="false"
+				required
+				disabled
+			/>
+		</div>
+	</div>
+	{% endif %}
+
+	{% if params["message_label"] %}
+	<div>
+		<div class="input-group">
+			<span class="input-group-text text-muted">
+				{% with icon="chat-text-fill" %}{% include "icons.html" %}{% endwith %}
+			</span>
+			<textarea
+				class="form-control"
+				id="message"
+				data-fd-field="transaction"
+				placeholder="{{ params['message_label'] }}"
+				autocorrect="off"
+				spellcheck="false"
+				rows="2"
+				aria-describedby="chars_remaining"
+				maxlength="250"
+			></textarea>
+		</div>
+		<div id="chars_remaining" class="form-text mt-0 remove"><span></span> Characters Remaining</div>
+	</div>
+	{% endif %}
+
+	<div id="apCard" class="input-group d-none">
+		<span class="input-group-text">
+			{% with icon="credit-card-fill" %}{% include "icons.html" %}{% endwith %}
+		</span>
+		<input
+			type="text"
+			class="form-control"
+			aria-label="Apple Pay Card"
+			readonly
+		/>
+	</div>
+</fieldset>

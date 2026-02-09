@@ -1,0 +1,82 @@
+{% set video = "video" in params %}
+{% set img = not video and "iframe" in params and "image" in params %}
+
+<header class="d-grid gap-2">
+	{% if video %}
+	<div class="ratio ratio-16x9">
+		<iframe
+			src="{{ params['video'] }}"
+			{% if "title" in params %}title="{{ params['title'] }}"{% endif %}
+			allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+			allowfullscreen
+		></iframe>
+	</div>
+	{% endif %}
+
+	{% if img %}
+	<div class="position-relative rounded overflow-hidden">
+		<a href="{{ params['campaignLink'] }}" target="_blank"><img class="img-fluid" src="{{ params['image'] }}" {% if "title" in params
+		%}alt="{{ params['title'] }}"{% endif %} /></a> {% endif %} {% if "by" in params
+		%}
+		<small
+			class="
+				d-flex
+				align-items-center
+				{%
+				if
+				img
+				%}
+				position-absolute
+				bottom-0
+				rounded-end
+				squared-bottom-end
+				py-1
+				px-2
+				bg-dark bg-opacity-75
+				text-white
+				{%
+				else
+				%}
+				mb-n1
+				text-muted
+				{%
+				endif
+				%}
+			"
+		>
+			{% if "avatar" in params %}
+			<div class="flex-shrink-0 me-2">
+				<img
+					src="{{ params['avatar'] }}"
+					class="
+						rounded-circle
+						{%
+						if
+						img
+						%}
+						w-spacer-1_75
+						{%
+						else
+						%}
+						w-spacer-2
+						border
+						{%
+						endif
+						%}
+					"
+					alt="{{ params['by'] }}"
+				/>
+			</div>
+			{% endif %}
+			<div class="flex-grow-1{% if params['by'].startswith('Sponsored') %} fst-italic{% endif %}">
+				{{ params["by"] }}
+			</div>
+		</small>
+		{% endif %} {% if img %}
+	</div>
+	{% endif %} {% if "title" in params %}
+	<a href="{{ params['campaignLink'] }}" target="_blank"><h3 class="mb-0 fw-bold">{{ params["title"] }}</h3></a>
+	{% endif %} {% if "subtitle" in params %}
+	<p class="mb-0">{{ params["subtitle"] }}</p>
+	{% endif %}
+</header>

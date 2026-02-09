@@ -1,0 +1,61 @@
+<fieldset class="d-grid gap-1 text-center remove">
+  <!--<div id="wallet" class="row gx-2 d-none">
+    <div class="col">
+      <button
+        type="button"
+        id="apBtn"
+        class="d-block w-100 bg-black text-white fw-light"
+      ></button>
+    </div>
+  </div>-->
+
+  <div id="apBtnCont" class="row gx-2 mb-1 d-none">
+    <div class="col">
+      <button
+        type="button"
+        id="apBtn"
+        class="d-block w-100 bg-black text-white fw-light"
+      ></button>
+    </div>
+  </div>
+
+  <div id="stripe_pr_btn_cont" class="row gx-2 d-none">
+    <div class="col">
+      <div id="stripe_pr_btn"></div>
+    </div>
+  </div>
+
+  <small id="stripeLinkText" class="text-muted fw-light fst-italic"
+    >or {{ params.get("action", config["ACTION"]) }} with</small
+  >
+  <small class="text-muted fw-light fst-italic mt-n1"
+    >{{ params.get("action", config["ACTION"]).title() }} with</small
+  >
+
+  <div class="btn-group" role="group" aria-label="Payment Method">
+    <button
+      type="button"
+      class="btn btn-secondary btn-caret flex-basis-0 z-index-focus-2"
+      data-bs-toggle="collapse"
+      data-bs-target="#method-card"
+      aria-expanded="false"
+      data-fd-proc="{{ config['PROCS']['card'][0] }}"
+    >
+      {% with icon="credit-card-fill", icon_classes="iconPosition me-1" %}{%
+      include "icons.html" %}{% endwith %}Card
+    </button>
+    {#
+    <button
+      type="button"
+      class="btn btn-secondary btn-caret flex-basis-0 z-index-focus-2"
+      data-bs-toggle="collapse"
+      data-bs-target="#method-bank-draft"
+      aria-expanded="false"
+    >
+      <span class="position-relative bottom-1px me-1"
+        >{% with icon="bank2" %}{% include "icons.html" %}{% endwith %}</span
+      >Bank Draft
+    </button>
+    #}
+  </div>
+</fieldset>

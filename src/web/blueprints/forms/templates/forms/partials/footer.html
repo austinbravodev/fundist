@@ -1,0 +1,13 @@
+<footer class="text-center mt-n1">
+	<ul class="d-inline-block list-inline small text-muted fst-italic mb-0">
+		<li class="list-inline-item fw-light">
+			Powered by <span class="text-primary fst-normal fw-bold">fundist</span>
+		</li>
+		{% if config["TERMS"] %}
+		<li class="list-inline-item opacity-50">|</li>
+		<li class="list-inline-item">
+			<a href="{{ config['TERMS'] }}" target="_blank">Terms</a>
+		</li>
+		{% endif %}
+	</ul>
+</footer>

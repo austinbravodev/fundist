@@ -1,0 +1,26 @@
+{% extends "base.html" %} {% block content %} {% set def_sym =
+config["CURRENCIES"][params["currency"]] %}
+
+<form class="bg-light border rounded p-3 d-grid gap-3">
+	{% include "forms/partials/header.html" %}
+
+	<main class="d-grid gap-3">
+		<div id="messages" class="alert d-none-empty mb-0" role="alert"></div>
+		{% if config["DEDUCTIBLE"] %}
+		<div class="alert alert-primary small mb-0 py-2 text-center" role="alert">
+			<ul class="list-inline mb-0">
+				<li class="list-inline-item fw-bold">
+					<span id="taxFlag" class="me-1">{{ config["DEDUCTIBLE"] }}</span
+					>Tax-Deductible {{ config["TYPE"].title() }}
+				</li>
+			</ul>
+		</div>
+		{% endif %} {% include "forms/partials/transaction_fields.html" %} {% include
+		"forms/partials/payment_methods.html" %} {% include "forms/partials/user_fields.html" %}
+		{% include "forms/partials/card_fields.html" %} {% include
+		"forms/partials/submit_fields.html" %}
+	</main>
+
+	{% include "forms/partials/footer.html" %}
+</form>
+{% endblock %}

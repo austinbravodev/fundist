@@ -1,0 +1,138 @@
+<fieldset class="collapse" data-fd-methods="card bank-draft" disabled>
+	<div class="d-grid gap-2">
+		<div class="input-group">
+			<span class="input-group-text text-muted">
+				{% with icon="person-fill" %}{% include "icons.html" %}{% endwith %}
+			</span>
+			<input
+				type="text"
+				class="form-control"
+				id="first_name"
+				data-fd-field="user"
+				placeholder="First Name"
+				autocomplete="cc-given-name"
+				autocorrect="off"
+				spellcheck="false"
+				required
+			/>
+			<input
+				type="text"
+				class="form-control"
+				id="last_name"
+				data-fd-field="user"
+				placeholder="Last Name"
+				autocomplete="cc-family-name"
+				autocorrect="off"
+				spellcheck="false"
+				required
+			/>
+		</div>
+
+		<div class="input-group">
+			<span class="input-group-text text-muted">
+				{% with icon="envelope-fill" %}{% include "icons.html" %}{% endwith %}
+			</span>
+			<input
+				type="email"
+				class="form-control"
+				id="email"
+				data-fd-field="user"
+				placeholder="Email"
+				autocomplete="email"
+				autocorrect="off"
+				spellcheck="false"
+				autocapitalize="off"
+				required
+			/>
+		</div>
+
+		<div class="input-group">
+			<span class="input-group-text text-muted">
+				{% with icon="flag-fill" %}{% include "icons.html" %}{% endwith %}
+			</span>
+			<select
+				class="form-select"
+				id="country_code"
+				data-fd-field="user"
+				aria-label="Country"
+				autocomplete="country"
+				required
+			>
+				{% include "forms/partials/country_options.html" %}
+			</select>
+		</div>
+
+		{% if config["ADDRESS"] == "full" %}
+		<div class="input-group">
+			<span class="input-group-text text-muted">
+				{% with icon="signpost-fill" %}{% include "icons.html" %}{% endwith %}
+			</span>
+			<input
+				type="text"
+				class="form-control"
+				id="address"
+				data-fd-field="user"
+				placeholder="Address"
+				autocomplete="address-line1"
+				autocorrect="off"
+				spellcheck="false"
+				required
+			/>
+		</div>
+
+		<div class="input-group">
+			<span class="input-group-text text-muted">
+				{% with icon="geo-fill" %}{% include "icons.html" %}{% endwith %}
+			</span>
+			<input
+				type="text"
+				class="form-control"
+				id="unit"
+				data-fd-field="user"
+				placeholder="Unit #"
+				autocomplete="address-line2"
+				autocorrect="off"
+				spellcheck="false"
+			/>
+			<input
+				type="text"
+				class="form-control flex-grow-1_75"
+				id="city"
+				data-fd-field="user"
+				placeholder="City"
+				autocomplete="address-level2"
+				autocorrect="off"
+				spellcheck="false"
+				required
+			/>
+		</div>
+		{% endif %}
+
+		<div class="input-group">
+			<span class="input-group-text text-muted">
+				{% with icon="geo-alt-fill" %}{% include "icons.html" %}{% endwith %}
+			</span>
+			<select
+				class="form-select flex-grow-1_25"
+				id="province"
+				data-fd-field="user"
+				aria-label="State / Province / Territory"
+				autocomplete="address-level1"
+				required
+			>
+				{% include "forms/partials/province_options.html" %}
+			</select>
+			<input
+				type="text"
+				class="form-control"
+				id="postal_code"
+				data-fd-field="user"
+				placeholder="Postal Code"
+				autocomplete="postal-code"
+				autocorrect="off"
+				spellcheck="false"
+				required
+			/>
+		</div>
+	</div>
+</fieldset>

@@ -1,0 +1,41 @@
+version: "3"
+
+services:
+  postgres:
+    image: postgres:alpine
+    env_file: .env
+
+  redis:
+    image: redis:alpine
+
+  worker:
+    build:
+      context: .
+      dockerfile: Dockerfile.worker
+    volumes:
+      - ./src/worker:/fundist/worker/
+      - ./src/database:/fundist/database/
+      - ./src/integrations:/fundist/integrations/
+      - ./src/signup_processors:/fundist/signup_processors/
+    env_file: .env
+    depends_on:
+      - postgres
+      - redis
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.web
+    expose:
+      - 8000
+    ports:
+      - 80:8000
+    volumes:
+      - ./src:/fundist/
+    env_file: .env
+    environment:
+      - QUART_APP=web:app
+      - QUART_ENV=development
+    command: quart run -h 0.0.0.0 -p 8000
+    depends_on:
+      - worker

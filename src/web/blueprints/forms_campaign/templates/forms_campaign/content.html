@@ -1,0 +1,14 @@
+{% extends "base.html" %} {% block content %}
+
+<form class="bg-light border rounded p-3 d-grid gap-3">
+	{% include "forms_campaign/partials/header.html" %}
+
+	{% if "action" in params %}
+	<main class="d-grid gap-3">
+		{% include "forms_campaign/partials/submit_fields.html" %}
+	</main>
+	{% endif %}
+
+	{% include "forms_campaign/partials/footer.html" %}
+</form>
+{% endblock %}

@@ -1,0 +1,38 @@
+<fieldset
+	class="collapse remove"
+	data-fd-methods="card bank-draft"
+	disabled
+>
+	<div class="d-grid gap-2">
+		<div id="turnstileContainer" class="mx-auto" data-turnstile-action="donation"></div>
+		
+		<button
+			type="submit"
+			class="btn btn-secondary fw-bold position-relative"
+			disabled
+		>
+			<span
+				class="
+					position-absolute
+					top-50
+					translate-middle-y
+					btn-icon-left btn-icon-d-sibling-toggle
+				"
+				>{% with icon="lock-fill", icon_classes="iconPosition" %}{% include
+				"icons.html" %}{% endwith %}</span
+			>
+			<span class="position-absolute top-50 translate-middle-y btn-icon-left"
+				><span
+					class="spinner-border spinner-border-sm position-relative top-1px"
+					role="status"
+					aria-label="Processing"
+					aria-hidden="true"
+				></span
+			></span>
+			{{ params.get("action", config["ACTION"]).title() }}
+			<span class="curr-sym d-none">{{ def_sym }}</span
+			><span id="btn-amt"></span>
+			<span id="btn-int"></span>
+		</button>
+	</div>
+</fieldset>

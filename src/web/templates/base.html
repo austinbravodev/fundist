@@ -1,0 +1,136 @@
+{% set hosted = "iframe" not in params %} {% set bg = "image" in params %}
+{% set form_type = params.get("type", "").strip().lower() %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="{{ url_for('static', filename='dist/fundist.min.css', ver=32) }}"
+      rel="stylesheet"
+    />
+
+    <!--<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=onloadTurnstileCallback" defer></script>-->
+
+    {% if false %}
+    <meta property="og:type" content="website" />
+    <meta property="twitter:card" content="summary_large_image" />
+
+    {% set site = params.get("action", config["ACTION"]).title() + " - " + config["NAME"] %}
+    <meta property="og:site_name" content="{{ site }}" />
+    {% if config["TWITTER"] %}
+    <meta name="twitter:site" content="@{{ config['TWITTER'] }}" />
+    {% endif %}
+
+    <meta property="og:url" content="{{ request.url | safe }}" />
+
+    {% set title = params.get("title", site) %}
+    <title>{{ title }}</title>
+    <meta name="title" content="{{ title }}" />
+    <meta property="og:title" content="{{ title }}" />
+
+    {% if "subtitle" in params %}
+    <meta name="description" content="{{ params['subtitle'] }}" />
+    <meta property="og:description" content="{{ params['subtitle'] }}" />
+    {% endif %} {% if bg %}
+    <meta property="og:image" content="{{ params['image'] }}" />
+    <meta name="twitter:image:alt" content="{{ title }}" />
+    {% endif %} {% else %}
+    <meta name="robots" content="noindex" />
+    {% endif %}
+  </head>
+  <body{% if hosted %} class="bg-primary"{% endif %}>
+    {% if hosted %}
+    <main
+      class="
+        position-relative
+        {%
+        if
+        bg
+        %}py-lg-5{%
+        else
+        %}pt-3
+        pt-md-4{%
+        endif
+        %}
+      "
+    >
+      {% if bg %}
+      <img
+        id="bg"
+        class="w-100 mb-3 mb-md-4 mb-lg-0"
+        src="{{ params['image'] }}"
+      />
+      {% endif %}
+      <div class="container">
+        <div
+          class="row justify-content-center{% if bg and 'align' in params %} justify-content-lg-{{ params['align'] }}{% endif %}"
+        >
+          <div class="col-md-8 col-lg-6 col-xl-5">
+            {% endif %} {% block content %}{% endblock %} {% if hosted %}
+          </div>
+        </div>
+      </div>
+    </main>
+    <footer class="py-3 text-center text-white fst-italic small">
+      <div class="container">
+        &copy; {{ config["LEGAL_NAME"] }}
+      </div>
+    </footer>
+    {% else %}
+    <script src="{{ url_for('static', filename='dist/iframeResizer.contentWindow.min.js') }}"></script>
+    {% endif %}
+    <script src="{{ url_for('static', filename='dist/bootstrap.min.js') }}"></script>
+
+    <script>
+      const fdTurnstileSiteKey = "{{ config["TURNSTILE_SITE_KEY"] }}",
+        fdErrorContact = '<p class="mt-2 mb-0 fst-italic" style="font-size: .95em">Share feedback with <a class="alert-link" href="mailto:{{ config["SUPPORT_EMAIL"] }}">{{ config["SUPPORT_EMAIL"] }}</a> - please provide as much info as possible, including error message(s), browser name and version number, and operating system name and version number.</p>';
+    </script>
+    
+    {% if form_type not in ["signup", "signature", "campaign"] %}
+    
+    {% for script in config["SCRIPTS"] %}
+    <script src="{{ script }}"></script>
+    {% endfor %}
+
+    <script>
+      const fdName = "{{ config['NAME'] }}",
+        fdFallbackMsg = {% if config["FALLBACK_URL"] %}' please <a class="alert-link" href="{{ config["FALLBACK_URL"] }}" target="_blank">click here</a> to donate.'{% else %}false{% endif %},
+        fdStripePubkey = "{{ config['STRIPE_PUBLIC_KEY'] }}",
+        fdDomains = "{{ config['DOMAINS'] }}".split(" ");
+
+      const fdTurnstileClientError = 'A spam prevention error occurred - please reload the page and try again.{% if config["FALLBACK_URL"] %} If the issue persists, please <a class="alert-link" href="{{ config["FALLBACK_URL"] }}" target="_blank">donate here</a>.{% endif %}'
+
+      {% if "custom_amounts" in params %}
+      const fdCustomAmounts = "{{ params["custom_amounts"] }}",
+        fdCurrencies = {
+          {% for curr, sym in config["CURRENCIES"].items() %}
+          {{ curr.lower() }}: "{{ sym }}",
+          {% endfor %}
+        },
+        fdDefCurr = "{{ params["currency"].lower() }}",
+        fdDefInt = "{{ params["interval"] }}";
+      {% else %}
+      const fdCustomAmounts = false;
+      {% endif %}
+    </script>
+    <script src="{{ url_for('static', filename='dist/fundist.min.js', ver=32) }}"></script>
+    {% elif form_type in ["signup", "signature"] %}
+    <script>
+      const fdPetition = {% if form_type == "signature" %}""{% else %}" up"{% endif %},
+        fdFallbackMsg = {% if config["FALLBACK_URL_SIGNUP"] %}' please <a class="alert-link" href="{{ config["FALLBACK_URL_SIGNUP"] }}" target="_blank">click here</a> to sign' + fdPetition + '.'{% else %}false{% endif %};
+
+      const fdTurnstileClientError = 'A spam prevention error occurred - please reload the page and try again.{% if config["FALLBACK_URL_SIGNUP"] %} If the issue persists, please <a class="alert-link" href="{{ config["FALLBACK_URL_SIGNUP"] }}" target="_blank">sign{% if form_type == "signature" %}{% else %} up{% endif %} here</a>.{% endif %}'
+    </script>
+    <script src="{{ url_for('static', filename='dist/fundist_signup.min.js', ver=32) }}"></script>
+    {% endif %}
+  </body>
+</html>

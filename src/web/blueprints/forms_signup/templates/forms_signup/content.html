@@ -1,0 +1,14 @@
+{% extends "base.html" %} {% block content %}
+
+<form class="bg-light border rounded p-3 d-grid gap-3">
+	{% include "forms_signup/partials/header.html" %}
+
+	<main class="d-grid gap-3">
+		<div id="messages" class="alert d-none-empty mb-0" role="alert"></div>
+		{% include "forms_signup/partials/user_fields.html" %}
+		{% include "forms_signup/partials/submit_fields.html" %}
+	</main>
+
+	{% include "forms_signup/partials/footer.html" %}
+</form>
+{% endblock %}

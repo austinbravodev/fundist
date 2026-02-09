@@ -1,0 +1,27 @@
+{
+	"name": "Fundist",
+	"scripts": {
+		"js-transpile": "babel src/web/static/src/js/main.js src/web/static/src/js/stripe_payment_request_button.js src/web/static/src/js/turnstile.js -o src/web/static/transpiled/fundist.js",
+		"js-transpile-signup": "babel src/web/static/src/js/signup.js src/web/static/src/js/turnstile.js -o src/web/static/transpiled/fundist_signup.js",
+		"js-compile": "npm run js-transpile && npm run js-transpile-signup && webpack",
+		"css-compile": "sass --no-source-map --style=compressed src/web/static/src/scss/main.scss src/web/static/dist/fundist.min.css && postcss src/web/static/dist/fundist.min.css -u autoprefixer -r",
+		"js-css-compile": "npm run js-compile && npm run css-compile"
+	},
+	"devDependencies": {
+		"@babel/cli": "^7.17.6",
+		"@babel/core": "^7.17.9",
+		"@babel/preset-env": "^7.16.11",
+		"autoprefixer": "^10.4.7",
+		"eslint": "^8.19.0",
+		"eslint-config-prettier": "^8.5.0",
+		"postcss": "^8.4.14",
+		"postcss-cli": "^10.0.0",
+		"prettier": "2.7.1",
+		"webpack": "^5.72.0",
+		"webpack-cli": "^4.9.2"
+	},
+	"dependencies": {
+		"@babel/polyfill": "^7.12.1",
+		"core-js": "^3.22.3"
+	}
+}

@@ -1,0 +1,21 @@
+<fieldset class="remove">
+	<div class="d-grid gap-2">
+		<a
+			href="{{ params['campaignLink'] }}"
+			target="_blank"
+			class="btn btn-secondary fw-bold position-relative"
+		>
+			<span
+				class="
+					position-absolute
+					top-50
+					translate-middle-y
+					btn-icon-left btn-icon-d-sibling-toggle
+				"
+				>{% with icon="arrow-up-right-square-fill", icon_classes="iconPosition" %}{% include
+				"icons.html" %}{% endwith %}</span
+			>
+			{{ params.get("action", config["ACTION_CAMPAIGN"]).title() }}
+		</a>
+	</div>
+</fieldset>
