@@ -1,1 +1,2 @@
 src/web/static/src/scss/**/* linguist-vendored
+src/web/blueprints/forms/templates/**/* linguist-language=Python
